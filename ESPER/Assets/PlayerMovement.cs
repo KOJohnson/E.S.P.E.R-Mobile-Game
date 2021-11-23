@@ -1,24 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     private PlayerInput _playerInput;
-    [SerializeField]private GameObject cube;
-    [SerializeField]private LayerMask layerMask;
-    [SerializeField]private float rayLength;
-    [SerializeField]private bool isGrounded;
-    
-    private CharacterController controller;
-    private Vector3 playerVelocity;
-    //[SerializeField]private bool groundedPlayer;
-    [SerializeField]private float playerSpeed = 2.0f;
-    [SerializeField]private float jumpHeight = 1.0f;
-    [SerializeField]private float gravityValue = -9.81f;
 
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private float rayLength;
+    [SerializeField] private bool isGrounded;
+
+    private CharacterController controller;
+    [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float jumpHeight = 1.0f;
+    [SerializeField] private float gravityValue = -9.81f;
 
     private void Awake()
     {
@@ -35,41 +30,25 @@ public class PlayerController : MonoBehaviour
     {
         _playerInput.Disable();
     }
-
-   
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        
+        print(isGrounded);
     }
 
+    // Update is called once per frame
     void Update()
     {
-        
-        if (isGrounded && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
-
         Vector2 movementInput = _playerInput.PlayerMain.Move.ReadValue<Vector2>();
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
-        controller.Move(move * Time.deltaTime * playerSpeed);
 
+        transform.position += move * playerSpeed * Time.deltaTime;
         if (move != Vector3.zero)
         {
-            
-            gameObject.transform.forward = move;
+            transform.rotation = Quaternion.LookRotation(move);
         }
+        transform.Translate(move * playerSpeed * Time.deltaTime, Space.World);
 
-        // Changes the height position of the player..
-        if (_playerInput.PlayerMain.Jump.triggered && isGrounded)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-        
-        Shooting();
         GroundCheck();
     }
 
@@ -98,7 +77,6 @@ public class PlayerController : MonoBehaviour
         else isGrounded = false;
 
         return isGrounded;
-        
+
     }
 }
-
