@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerInput = new PlayerInput();
         controller = GetComponent<CharacterController>();
+
+        _playerInput.PlayerMain.Shoot.performed += _ => Shooting();
     }
 
     private void OnEnable()
@@ -50,20 +52,16 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(move * playerSpeed * Time.deltaTime, Space.World);
 
         GroundCheck();
+        
     }
 
     private void Shooting()
     {
-
-        if (_playerInput.PlayerMain.Shoot.triggered)
-        {
-            RaycastHit hit;
+        RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
             {
                 Debug.DrawRay(transform.position, transform.forward * 1000, Color.red);
-                Debug.Log("Shooting");
             }
-        }
     }
 
     private bool GroundCheck()
