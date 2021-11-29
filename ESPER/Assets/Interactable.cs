@@ -7,9 +7,10 @@ public class Interactable : MonoBehaviour
 {
     public UnityEvent onInteract;
     [HideInInspector]public ElevatorController elevatorController;
+    
     private void Awake()
     {
-        GetComponent<ElevatorController>();
+       elevatorController = GetComponent<ElevatorController>();
     }
     public void AddHealth()
     {
@@ -26,7 +27,11 @@ public class Interactable : MonoBehaviour
     public void ActivateElevator()
     {
         elevatorController.elevatorOn = true;
+    }
 
+    public void KeyCard()
+    {
+        GameManager.instance.hasKeyCard = true;
     }
     
 

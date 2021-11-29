@@ -17,6 +17,7 @@ public class AiBehaviour : MonoBehaviour
     public float fireRate = 1f;
     
     public bool playerSeen;
+    public bool hasPatrolPoints;
     public bool canWander;
 
     public Transform[] movePaths;
@@ -33,11 +34,18 @@ public class AiBehaviour : MonoBehaviour
         sensor = GetComponent<AiSensor>();
         agent = GetComponent<NavMeshAgent>();
         
-        foreach (Transform movePoint in movePaths)
+        if (movePaths.Length > 0)
         {
-            var movePointPosition = movePoint.transform.position;
-            movePointPosition = new Vector3(movePointPosition.x, movePointPosition.y, movePointPosition.z);
-            moveVectors.Add(movePointPosition);
+            hasPatrolPoints = true;
+            foreach (Transform movePoint in movePaths)
+            {
+                var movePointPosition = movePoint.transform.position;
+                movePointPosition = new Vector3(movePointPosition.x, movePointPosition.y, movePointPosition.z);
+                moveVectors.Add(movePointPosition);
+            }
+        }
+        else {
+            hasPatrolPoints = false;
         }
         
         player = null;
@@ -47,6 +55,7 @@ public class AiBehaviour : MonoBehaviour
     void Update()
     {
         var position = transform.position;
+        distanceToNextMove = Vector3.Distance(position, moveVectors[moveIndex]);
         distanceToPlayer = Vector3.Distance(position, PlayerStats.instance.PlayerPosition);
         
         if (!player) 
@@ -56,13 +65,12 @@ public class AiBehaviour : MonoBehaviour
             {
                 Wander();
             }
-            if (distanceToNextMove < 1)
+            if (distanceToNextMove < 1 && hasPatrolPoints)
             {
                 moveIndex++;
             }
-            if (!canWander)
+            if (!canWander && hasPatrolPoints)
             {
-                distanceToNextMove = Vector3.Distance(position, moveVectors[moveIndex]);
                 FollowPath();
             }
         }

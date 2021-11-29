@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,21 +6,33 @@ using UnityEngine.Events;
 public class Interactions : MonoBehaviour
 {  
     [SerializeField] LayerMask interactableLayer;
-    [SerializeField] private int maxDistance = 3;
+    [SerializeField] private int maxDistance = 5;
     private UnityEvent onInteract;
+    private PlayerInput _playerInput;
 
-    // Update is called once per frame
-    void Update()
+    public Transform rayOrigin;
+    
+    private void Awake()
     {
-        
-      
+        _playerInput = new PlayerInput();
+
+        _playerInput.PlayerMain.Interact.performed += _ => RayCastInteract();
     }
 
+    private void OnEnable()
+    {
+        _playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.Disable();
+    }
+    
     private void RayCastInteract()
     {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit Hit;
-        if (Physics.Raycast(ray, out Hit, maxDistance, interactableLayer))
+        if (Physics.Raycast(rayOrigin.transform.position, rayOrigin.transform.forward, out Hit, maxDistance, interactableLayer))
         {
             Debug.Log(Hit.transform.name);
             if (Hit.collider.GetComponent<Interactable>() != false)
@@ -29,4 +42,5 @@ public class Interactions : MonoBehaviour
             }
         }
     }
+    
 }

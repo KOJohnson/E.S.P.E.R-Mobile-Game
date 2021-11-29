@@ -36,6 +36,10 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         PlayerPosition = transform.position;
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
     }
 
     public void PlayerTakeDamage(float damage)
