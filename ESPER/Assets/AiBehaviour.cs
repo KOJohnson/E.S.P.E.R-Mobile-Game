@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,22 +6,28 @@ public class AiBehaviour : MonoBehaviour
 {
     [HideInInspector]public AiSensor sensor;
     [HideInInspector]public NavMeshAgent agent;
-
-    public float distanceToPLayer;
+    
+    
+    public float distanceToPlayer;
     public float distanceToNextMove;
     public int attackRange;
+    [SerializeField]private int rollNumber;
+    [SerializeField] private int damage;
+    private float _nextFire;
+    public float fireRate = 1f;
     
     public bool playerSeen;
     public bool canWander;
 
     public Transform[] movePaths;
     [SerializeField]private List<Vector3> moveVectors;
+    public int moveIndex;
 
     private GameObject player;
     public Transform minMove;
     public Transform maxMove;
     
-    // Start is called before the first frame update
+   
     void Start()
     {
         sensor = GetComponent<AiSensor>();
@@ -36,27 +41,48 @@ public class AiBehaviour : MonoBehaviour
         }
         
         player = null;
+        moveIndex = 0;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-
-        if (!player) {
+        var position = transform.position;
+        distanceToPlayer = Vector3.Distance(position, PlayerStats.instance.PlayerPosition);
+        
+        if (!player) 
+        {
             player = FindPlayer();
-            if (canWander) {
+            if (canWander)
+            {
                 Wander();
             }
-            else
+            if (distanceToNextMove < 1)
             {
+                moveIndex++;
+            }
+            if (!canWander)
+            {
+                distanceToNextMove = Vector3.Distance(position, moveVectors[moveIndex]);
                 FollowPath();
             }
         }
 
-        if (player) {
+        if (player && distanceToPlayer > attackRange) 
+        {
             ChasePlayer();
         }
-        
+
+        if (player && distanceToPlayer <= attackRange)
+        {
+            agent.speed = 0;
+            
+            if (Time.time > _nextFire)
+            {
+                _nextFire = Time.time + fireRate;
+                RollDice();
+                Attack();
+            }
+        }
     }
 
     private GameObject FindPlayer()
@@ -71,33 +97,52 @@ public class AiBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        agent.speed = 1;
         agent.destination = player.transform.position;
     }
 
     private void Attack()
     {
-        Debug.Log("do something");
+        PlayerStats.instance.PlayerTakeDamage(damage);
     }
     
     private void FollowPath()
     {
-        for (int i = 0; i < moveVectors.Count;)
-        {
-            agent.SetDestination(moveVectors[i]);
-            distanceToNextMove = Vector3.Distance(transform.position, moveVectors[i]);
-            print(i);
-        }
-        
+        agent.speed = 1;
+        agent.SetDestination(moveVectors[moveIndex]);
 
+        if (moveIndex >= moveVectors.Count)
+        {
+            moveIndex = 0;
+        }
     }
 
+    private void RollDice()
+    {
+        rollNumber = Random.Range(1, 21);
+
+        if (rollNumber < 8)
+        {
+            damage = 0;
+            Debug.Log($"Rolled for {rollNumber}, hit for {damage} damage points");
+        }
+
+        if (rollNumber > 8 )
+        {
+            damage = Random.Range(4, 11);
+            Debug.Log($"Rolled for {rollNumber}, hit for {damage} damage points");
+        }
+    }
+    
     private void Wander()
     {
+        agent.speed = 1;
         if (!agent.hasPath)
         {
             Vector3 min = minMove.position;
             Vector3 max = maxMove.position;
 
+            
             Vector3 randomPosition = new Vector3(
                 Random.Range(min.x, max.x),
                 Random.Range(min.y, max.y),
