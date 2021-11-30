@@ -6,7 +6,9 @@ public class AiBehaviour : MonoBehaviour
 {
     [HideInInspector]public AiSensor sensor;
     [HideInInspector]public NavMeshAgent agent;
-    
+
+    [SerializeField] private int currentHealth;
+    [SerializeField] private int maxHealth = 100;
     
     public float distanceToPlayer;
     public float distanceToNextMove;
@@ -33,6 +35,8 @@ public class AiBehaviour : MonoBehaviour
     {
         sensor = GetComponent<AiSensor>();
         agent = GetComponent<NavMeshAgent>();
+        
+        currentHealth = maxHealth;
         
         if (movePaths.Length > 0)
         {
@@ -112,6 +116,17 @@ public class AiBehaviour : MonoBehaviour
     private void Attack()
     {
         PlayerStats.instance.PlayerTakeDamage(damage);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0 )
+        {
+            Destroy(gameObject);
+            GameManager.instance.enemyKillCount++;
+            GameManager.instance.scoreCount += 10;
+        }
     }
     
     private void FollowPath()

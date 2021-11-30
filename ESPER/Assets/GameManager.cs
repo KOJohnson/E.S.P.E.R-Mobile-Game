@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
 {
     
     public static GameManager instance;
-    
+
+    public int enemyKillCount;
+    public int scoreCount;
     public bool hasKeyCard;
     
     // Start is called before the first frame update
