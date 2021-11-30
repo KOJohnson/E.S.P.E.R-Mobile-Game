@@ -39,6 +39,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if (GameManager.instance.isPaused)
+        // { 
+        //     OnDisable();
+        // }
+        // else { OnEnable(); }
+        
+        
         Vector2 movementInput = _playerInput.PlayerMain.Move.ReadValue<Vector2>();
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
 

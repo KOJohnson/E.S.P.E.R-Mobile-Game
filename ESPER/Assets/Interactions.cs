@@ -17,6 +17,8 @@ public class Interactions : MonoBehaviour
         _playerInput = new PlayerInput();
 
         _playerInput.PlayerMain.Interact.performed += _ => RayCastInteract();
+        _playerInput.PlayerMain.Pause.performed += _ => GameManager.instance.OnPause();
+
     }
 
     private void OnEnable()
@@ -28,7 +30,16 @@ public class Interactions : MonoBehaviour
     {
         _playerInput.Disable();
     }
-    
+
+    // private void Update()
+    // {
+    //     if (GameManager.instance.isPaused)
+    //     {
+    //         OnDisable();
+    //     }
+    //     else { OnEnable(); }
+    // }
+
     private void RayCastInteract()
     {
         RaycastHit Hit;

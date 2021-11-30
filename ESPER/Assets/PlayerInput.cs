@@ -57,6 +57,22 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b957a15-0687-49a2-94b4-3798b167e1fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Unpause"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ea4a0a4-3261-4c46-9da2-00cd6aa4f8c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)""
                 }
             ],
             ""bindings"": [
@@ -173,7 +189,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6f0e85fd-7b4b-439f-970d-2ad059477f9b"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<XInputController>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -202,6 +218,28 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""caef030a-2982-467d-9f19-039ab5b2c880"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4e483e4-814c-4557-93d0-9a2484f0a492"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Unpause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -215,6 +253,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_PlayerMain_Look = m_PlayerMain.FindAction("Look", throwIfNotFound: true);
         m_PlayerMain_Shoot = m_PlayerMain.FindAction("Shoot", throwIfNotFound: true);
         m_PlayerMain_Interact = m_PlayerMain.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerMain_Pause = m_PlayerMain.FindAction("Pause", throwIfNotFound: true);
+        m_PlayerMain_Unpause = m_PlayerMain.FindAction("Unpause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -269,6 +309,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMain_Look;
     private readonly InputAction m_PlayerMain_Shoot;
     private readonly InputAction m_PlayerMain_Interact;
+    private readonly InputAction m_PlayerMain_Pause;
+    private readonly InputAction m_PlayerMain_Unpause;
     public struct PlayerMainActions
     {
         private @PlayerInput m_Wrapper;
@@ -278,6 +320,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Look => m_Wrapper.m_PlayerMain_Look;
         public InputAction @Shoot => m_Wrapper.m_PlayerMain_Shoot;
         public InputAction @Interact => m_Wrapper.m_PlayerMain_Interact;
+        public InputAction @Pause => m_Wrapper.m_PlayerMain_Pause;
+        public InputAction @Unpause => m_Wrapper.m_PlayerMain_Unpause;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMain; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -302,6 +346,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnInteract;
+                @Pause.started -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnPause;
+                @Unpause.started -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnUnpause;
+                @Unpause.performed -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnUnpause;
+                @Unpause.canceled -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnUnpause;
             }
             m_Wrapper.m_PlayerMainActionsCallbackInterface = instance;
             if (instance != null)
@@ -321,6 +371,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+                @Unpause.started += instance.OnUnpause;
+                @Unpause.performed += instance.OnUnpause;
+                @Unpause.canceled += instance.OnUnpause;
             }
         }
     }
@@ -332,5 +388,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnUnpause(InputAction.CallbackContext context);
     }
 }

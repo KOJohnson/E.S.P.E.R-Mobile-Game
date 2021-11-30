@@ -5,14 +5,24 @@ using UnityEngine;
 
 public class ElevatorController : MonoBehaviour
 {
-    public bool elevatorOn;
+    public bool moveElevatorUp;
+    public bool moveElevatorDown;
     [SerializeField]private GameObject platform;
     [SerializeField]private Transform platformTarget;
-    [SerializeField] private float elevatorSpeed;
-    
+    [SerializeField]private float elevatorSpeed;
+    [SerializeField] private float distance;
+    private Vector3 originalPos;
+
+    private void Start()
+    {
+        var position = transform.position;
+        originalPos = new Vector3(position.x, position.y, position.z);
+    }
+
     void Update()
     {
-        if (elevatorOn)
+        //distance = Vector3.Distance(platform.transform.position, platformTarget.position);
+        if (moveElevatorUp)
         {
             MoveUp();
         }

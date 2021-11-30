@@ -44,6 +44,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "2b957a15-0687-49a2-94b4-3798b167e1fc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Unpause",
+                    "type": "Button",
+                    "id": "9ea4a0a4-3261-4c46-9da2-00cd6aa4f8c1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
                 }
             ],
             "bindings": [
@@ -160,7 +176,7 @@
                 {
                     "name": "",
                     "id": "6f0e85fd-7b4b-439f-970d-2ad059477f9b",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<XInputController>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -187,6 +203,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "caef030a-2982-467d-9f19-039ab5b2c880",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4e483e4-814c-4557-93d0-9a2484f0a492",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Unpause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
