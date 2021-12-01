@@ -10,6 +10,8 @@ public class Pistol : MonoBehaviour
     
     public Transform rayOrigin;
     
+    [SerializeField]private bool firePressed;
+    [SerializeField]private bool fireReleased;
     [Header("Gun Stats")]
     [SerializeField] private int pistolDamage;
     private float _nextFire = 0f;
@@ -31,6 +33,8 @@ public class Pistol : MonoBehaviour
         
         
         _playerInput.PlayerMain.Shoot.performed += _ => Shooting();
+
+        Debug.Log(_playerInput.PlayerMain.Shoot.phase);
     }
 
     private void OnEnable()
@@ -52,7 +56,7 @@ public class Pistol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+     
     }
     
     private void Shooting()
@@ -64,7 +68,11 @@ public class Pistol : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, Mathf.Infinity))
             {
+                
                 StartCoroutine(MuzzleFlash());
+                shootSound.Play();
+                GameObject impactGO = Instantiate(hitDecal, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactGO,2f);
                 Debug.DrawRay(rayOrigin.position, rayOrigin.forward * 1000, Color.red);
 
                 AiBehaviour target = hit.collider.GetComponent<AiBehaviour>();

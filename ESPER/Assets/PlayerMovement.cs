@@ -11,9 +11,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounded;
 
     private CharacterController controller;
+    private float rotationY;
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
+    [SerializeField] private float rotationSpeed = 3f;
 
     private void Awake()
     {
@@ -46,15 +48,21 @@ public class PlayerMovement : MonoBehaviour
         // else { OnEnable(); }
         
         
+        
         Vector2 movementInput = _playerInput.PlayerMain.Move.ReadValue<Vector2>();
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
-
+        
         transform.position += move * playerSpeed * Time.deltaTime;
         if (move != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(move);
         }
-        transform.Translate(move * playerSpeed * Time.deltaTime, Space.World);
+        if (_playerInput.PlayerMain.Jump.triggered && isGrounded)
+        {
+            // playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        }
+        
+        // transform.Translate(move * playerSpeed * Time.deltaTime, Space.World);
 
         GroundCheck();
         
