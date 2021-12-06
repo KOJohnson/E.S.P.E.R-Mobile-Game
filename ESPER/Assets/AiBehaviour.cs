@@ -69,10 +69,15 @@ public class AiBehaviour : MonoBehaviour
             {
                 Wander();
             }
-            if (distanceToNextMove < 1 && hasPatrolPoints)
+            if (distanceToNextMove < 2 && hasPatrolPoints)
             {
                 moveIndex++;
+                if (moveIndex >= moveVectors.Count)
+                {
+                    moveIndex = 0;
+                }
             }
+            
             if (!canWander && hasPatrolPoints)
             {
                 FollowPath();
@@ -133,11 +138,7 @@ public class AiBehaviour : MonoBehaviour
     {
         agent.speed = 1;
         agent.SetDestination(moveVectors[moveIndex]);
-
-        if (moveIndex >= moveVectors.Count)
-        {
-            moveIndex = 0;
-        }
+        
     }
 
     private void RollDice()
