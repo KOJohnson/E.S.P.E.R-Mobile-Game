@@ -28,7 +28,8 @@ public class Interactable : MonoBehaviour
 
     public void Ammo()
     {
-        
+        // When ammo is picked up destroy and replenish ammo to max value
+        // Ammo = MaxAmmo
         Destroy(gameObject);
     }
 

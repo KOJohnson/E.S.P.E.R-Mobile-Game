@@ -8,9 +8,9 @@ public class PlayerStats : MonoBehaviour
     public static PlayerStats instance;
     
     public Vector3 PlayerPosition {get; private set;}
-    public float currentHealth;
-    public float maxHealth = 100f;
-    // public HealthBar healthBar;
+    public int currentHealth;
+    public int maxHealth = 100;
+    public healthBar healthBar;
 
    private void Awake()
     {
@@ -26,31 +26,41 @@ public class PlayerStats : MonoBehaviour
     
     void Start()
     {
+        // Start game with full health
         currentHealth = maxHealth;
+        PlayerTakeDamage(50);
+        
+        // healthBar.setMaxHealth(maxHealth);
+
         // if (healthBar != null)
         // {
         //     healthBar.SetMaxHealth(maxHealth);
         // }
+
     }
     
     void Update()
     {
         PlayerPosition = transform.position;
-        if (currentHealth < 0)
-        {
-            currentHealth = 0;
-        }
+        // if (currentHealth < 0)
+        // {
+        //    currentHealth = 0;
+        //}
+
+       
+            
+        
     }
 
-    public void PlayerTakeDamage(float damage)
+    public void PlayerTakeDamage(int damage)
     {
         currentHealth -= damage;
-        //healthBar.SetHealth(currentHealth);
+        healthBar.setHealth(currentHealth);
         
-        if (currentHealth <= 0)
-        {
-            //GameManager.instance.playerDead = true;
-        }
+       // if (currentHealth <= 0)
+       // {
+       //     GameManager.instance.playerDead = true;
+        //}
     }
 
     private void Die()
