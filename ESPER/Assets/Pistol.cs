@@ -9,11 +9,10 @@ public class Pistol : MonoBehaviour
     private PlayerInput _playerInput;
    
     // init Ammo variables 
-    public int maxAmmo = 10;
-    public int currentAmmo;
-    public float reloadTimer = 1f;
-
-    public Text ammoText; 
+    //public int maxAmmo = 10;
+    //public int currentAmmo;
+    //public float reloadTimer = 1f;
+    //public Text ammoText; 
 
     public Transform rayOrigin;
 
@@ -59,7 +58,7 @@ public class Pistol : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentAmmo = 0;
+        //currentAmmo = 0;
  
     }
 
@@ -74,7 +73,7 @@ public class Pistol : MonoBehaviour
         if (Time.time > _nextFire)
         {
             _nextFire = Time.time + fireRate;
-            currentAmmo--;
+            //currentAmmo--;
             RaycastHit hit;
             if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, Mathf.Infinity))
             {
@@ -91,7 +90,7 @@ public class Pistol : MonoBehaviour
                     target.TakeDamage(pistolDamage);
                 }
             }
-            ammoText.text = currentAmmo.ToString();
+            //ammoText.text = currentAmmo.ToString();
         }
         
     }

@@ -28,7 +28,6 @@ public class PlayerStats : MonoBehaviour
     {
         // Start game with full health
         currentHealth = maxHealth;
-        PlayerTakeDamage(50);
         
         // healthBar.setMaxHealth(maxHealth);
 
