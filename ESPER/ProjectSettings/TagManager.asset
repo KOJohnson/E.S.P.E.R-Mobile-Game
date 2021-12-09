@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - AmmoReplen
+  - LOD
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Player
   - Occlusion
   - Interactable
-  - 
+  - LOD
   - 
   - 
   - 

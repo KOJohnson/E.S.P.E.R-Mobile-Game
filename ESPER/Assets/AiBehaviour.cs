@@ -136,6 +136,8 @@ public class AiBehaviour : MonoBehaviour
     
     private void FollowPath()
     {
+        //sets agent speed to 1 
+        //sets the agent destination to the vector 3 value to the current index in moveVector array
         agent.speed = 1;
         agent.SetDestination(moveVectors[moveIndex]);
         
@@ -143,6 +145,8 @@ public class AiBehaviour : MonoBehaviour
 
     private void RollDice()
     {
+        //When called this will generate a random number between given values
+        //if current value is more than 8 we can add damage, if it is less than 8 then damage is 0
         rollNumber = Random.Range(1, 21);
 
         if (rollNumber < 8)
@@ -160,6 +164,10 @@ public class AiBehaviour : MonoBehaviour
     
     private void Wander()
     {
+        //if the agent navmesh does not have a path and canWander is true we assign a random path  but generating
+        //vector 3 values in between a set min and max movement area
+        //then we set the randomly generated Vector 3 to the agents current destination
+        
         agent.speed = 1;
         if (!agent.hasPath)
         {
