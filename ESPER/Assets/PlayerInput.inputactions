@@ -164,17 +164,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5adb7a00-ac96-44ee-a9ce-802d344b108e",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "6f0e85fd-7b4b-439f-970d-2ad059477f9b",
                     "path": "<XInputController>/rightTrigger",
                     "interactions": "",

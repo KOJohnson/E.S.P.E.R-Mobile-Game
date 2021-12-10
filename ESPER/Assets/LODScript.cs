@@ -21,6 +21,11 @@ public class LODScript : MonoBehaviour
         foreach (GameObject lod in lodHitList)
         {
             Debug.DrawLine(transform.position, lod.transform.position, Color.red);
+            var lodHit = lod.GetComponent<LODManager>();
+            if (lodHit != null)
+            {
+                lodHit.isInView = true;
+            }
         }
     }
 
@@ -34,6 +39,11 @@ public class LODScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        var lodNotInView = other.GetComponent<LODManager>();
+        if (lodNotInView != null)
+        {
+            lodNotInView.isInView = false;
+        }
         lodHitList.Remove(other.gameObject);
     }
 }
