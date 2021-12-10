@@ -9,7 +9,7 @@ public class ammoTrigger : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
             Debug.Log("COLLIDED");
-            Destroy(gameObject);
+            Destroy(GameObject.FindWithTag("AmmoReplen"));
         }
     }
 }
