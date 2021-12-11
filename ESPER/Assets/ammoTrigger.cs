@@ -6,7 +6,7 @@ public class ammoTrigger : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.CompareTag("PlayerCol"))
         {
             Debug.Log("COLLIDED");
             Destroy(gameObject);

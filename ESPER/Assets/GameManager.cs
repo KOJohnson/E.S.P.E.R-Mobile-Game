@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         }
         
         objectivePanel.SetActive(false);
-        pauseMenu.SetActive(false);
+        //pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame
