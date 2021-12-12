@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class Pistol : MonoBehaviour
 {
     private PlayerInput _playerInput;
+
+    public ammoBar AmmoBar;
    
     // init Ammo variables 
     public int maxAmmo = 10;
     public int currentAmmo;
     //public float reloadTimer = 1f;
-    //public Text ammoText; 
+    public Text ammoText; 
 
     public Transform rayOrigin;
 
@@ -59,13 +61,17 @@ public class Pistol : MonoBehaviour
     void Start()
     {
         currentAmmo = maxAmmo;
- 
+        AmmoBar.setMaxAmmo(maxAmmo);
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        ammoText.text = currentAmmo.ToString();
+
+ 
     }
     
     private void Shooting()
@@ -75,10 +81,9 @@ public class Pistol : MonoBehaviour
             _nextFire = Time.time + fireRate;
 
            
-           
-             currentAmmo--;
-            
-
+            currentAmmo--;
+            AmmoBar.setAmmo(currentAmmo);
+  
             RaycastHit hit;
             if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, Mathf.Infinity))
             {
@@ -95,7 +100,7 @@ public class Pistol : MonoBehaviour
                     target.TakeDamage(pistolDamage);
                 }
             }
-            //ammoText.text = currentAmmo.ToString();
+            
         }
         
     }
