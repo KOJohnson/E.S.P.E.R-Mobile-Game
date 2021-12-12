@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/PlayerInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/PlayerInput.inputactions'
 
 using System;
 using System.Collections;
@@ -70,6 +70,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""name"": ""Unpause"",
                     ""type"": ""Button"",
                     ""id"": ""9ea4a0a4-3261-4c46-9da2-00cd6aa4f8c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)""
+                },
+                {
+                    ""name"": ""PlaceMine"",
+                    ""type"": ""Button"",
+                    ""id"": ""b75d31c0-daa5-46d2-aca0-746bfcc16c50"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=1)""
@@ -229,6 +237,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Unpause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21d0bbff-aa4d-48c2-8fc8-40549b7bad2c"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceMine"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -244,6 +263,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_PlayerMain_Interact = m_PlayerMain.FindAction("Interact", throwIfNotFound: true);
         m_PlayerMain_Pause = m_PlayerMain.FindAction("Pause", throwIfNotFound: true);
         m_PlayerMain_Unpause = m_PlayerMain.FindAction("Unpause", throwIfNotFound: true);
+        m_PlayerMain_PlaceMine = m_PlayerMain.FindAction("PlaceMine", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -300,6 +320,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMain_Interact;
     private readonly InputAction m_PlayerMain_Pause;
     private readonly InputAction m_PlayerMain_Unpause;
+    private readonly InputAction m_PlayerMain_PlaceMine;
     public struct PlayerMainActions
     {
         private @PlayerInput m_Wrapper;
@@ -311,6 +332,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Interact => m_Wrapper.m_PlayerMain_Interact;
         public InputAction @Pause => m_Wrapper.m_PlayerMain_Pause;
         public InputAction @Unpause => m_Wrapper.m_PlayerMain_Unpause;
+        public InputAction @PlaceMine => m_Wrapper.m_PlayerMain_PlaceMine;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMain; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -341,6 +363,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Unpause.started -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnUnpause;
                 @Unpause.performed -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnUnpause;
                 @Unpause.canceled -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnUnpause;
+                @PlaceMine.started -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnPlaceMine;
+                @PlaceMine.performed -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnPlaceMine;
+                @PlaceMine.canceled -= m_Wrapper.m_PlayerMainActionsCallbackInterface.OnPlaceMine;
             }
             m_Wrapper.m_PlayerMainActionsCallbackInterface = instance;
             if (instance != null)
@@ -366,6 +391,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Unpause.started += instance.OnUnpause;
                 @Unpause.performed += instance.OnUnpause;
                 @Unpause.canceled += instance.OnUnpause;
+                @PlaceMine.started += instance.OnPlaceMine;
+                @PlaceMine.performed += instance.OnPlaceMine;
+                @PlaceMine.canceled += instance.OnPlaceMine;
             }
         }
     }
@@ -379,5 +407,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnUnpause(InputAction.CallbackContext context);
+        void OnPlaceMine(InputAction.CallbackContext context);
     }
 }

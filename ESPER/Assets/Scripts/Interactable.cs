@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Interactable : MonoBehaviour
 {
@@ -55,6 +56,16 @@ public class Interactable : MonoBehaviour
         StartCoroutine(CloseDoor());
     }
 
+    public void EndGame()
+    {
+        if (GameManager.instance.hasKeyCard)
+        {
+            doorController.anim.Play("DoorOpen");
+            SceneManager.LoadScene("End Scene");
+        }
+        
+    }
+
     private IEnumerator CloseDoor()
     {
 
@@ -62,6 +73,7 @@ public class Interactable : MonoBehaviour
         doorController.anim.Play("DoorClose");
         
     }
+    
     
 
 
