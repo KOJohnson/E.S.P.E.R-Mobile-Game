@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI objectiveText;
     
     [SerializeField]private GameObject pauseMenu;
+    [SerializeField]private GameObject mainHUD;
     public TextMeshProUGUI currentObjective;
     public bool isPaused;
     
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         if (!isPaused)
         {
             isPaused = true;
+            //mainHUD.SetActive(false);
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
             currentObjective.text = objective;
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour
         else
         {
             pauseMenu.SetActive(false);
+            //mainHUD.SetActive(true);
             Time.timeScale = 1f;
             isPaused = false;
         }
