@@ -27,6 +27,6 @@ public class Explosives : MonoBehaviour
 
     private void PlaceMine()
     {
-        Instantiate(mine, transform.position, Quaternion.identity);
+        Instantiate(mine, transform.position, transform.rotation);
     }
 }

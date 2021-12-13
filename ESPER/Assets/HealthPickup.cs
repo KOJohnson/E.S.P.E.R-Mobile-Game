@@ -1,19 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class HealthPickup : MonoBehaviour
 {
-    private int healAmount = 20;
+    private int healAmount;
+
+    private void Awake()
+    {
+        healAmount = Random.Range(10, 21);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("PlayerCol"))
         {
-            var health = other.GetComponent<PlayerStats>();
-            health.currentHealth += healAmount;
-            Destroy(gameObject);
+            print("hit");
+            var health = other.GetComponentInParent<PlayerStats>();
+            if (health.currentHealth != health.maxHealth)
+            {
+                health.currentHealth += healAmount;
+                Destroy(gameObject);
+            }
+            
         }
     }
 
