@@ -620,7 +620,7 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8192
-  maxDistance: 5
+  maxDistance: 3
   rayOrigin: {fileID: 8553541692022402136}
 --- !u!136 &8553541692049782272
 CapsuleCollider:
@@ -1075,6 +1075,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97c91bbed9f8bf418b46d047ce5453c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAmmo: 10
+  currentAmmo: 0
+  ammoText: {fileID: 0}
   rayOrigin: {fileID: 8553541693004031632}
   firePressed: 0
   fireReleased: 0
@@ -1096,9 +1099,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dc72838cc72e63946a69d179a6c72827, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 92d35fe1c59bbd14eaee9e3d3b54cea7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1142,7 +1145,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0

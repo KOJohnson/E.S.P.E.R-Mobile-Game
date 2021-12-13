@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounded;
 
     private CharacterController controller;
+    private Vector3 playerVelocity;
     private float rotationY;
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -59,9 +60,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if (_playerInput.PlayerMain.Jump.triggered && isGrounded)
         {
-            // playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
-        
+        playerVelocity.y += gravityValue * Time.deltaTime;
+
         // transform.Translate(move * playerSpeed * Time.deltaTime, Space.World);
 
         GroundCheck();

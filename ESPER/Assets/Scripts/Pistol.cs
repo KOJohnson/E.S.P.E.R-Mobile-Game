@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Pistol : MonoBehaviour
 {
     private PlayerInput _playerInput;
-
-    public ammoBar AmmoBar;
    
-    // init Ammo variables 
+    //init Ammo variables 
     public int maxAmmo = 10;
     public int currentAmmo;
     //public float reloadTimer = 1f;
-    public Text ammoText; 
+    public TextMeshProUGUI ammoText;
 
     public Transform rayOrigin;
 
@@ -61,16 +60,12 @@ public class Pistol : MonoBehaviour
     void Start()
     {
         currentAmmo = maxAmmo;
-        AmmoBar.setMaxAmmo(maxAmmo);
-        
-
+        ammoText.text = currentAmmo.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ammoText.text = currentAmmo.ToString();
-
  
     }
     
@@ -79,15 +74,13 @@ public class Pistol : MonoBehaviour
         if (Time.time > _nextFire && currentAmmo >= 1)
         {
             _nextFire = Time.time + fireRate;
-
-           
-            currentAmmo--;
-            AmmoBar.setAmmo(currentAmmo);
   
             RaycastHit hit;
             if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, Mathf.Infinity))
             {
-                
+                currentAmmo--;
+                ammoText.text = currentAmmo.ToString();
+
                 StartCoroutine(MuzzleFlash());
                 shootSound.Play();
                 GameObject impactGO = Instantiate(hitDecal, hit.point, Quaternion.LookRotation(hit.normal));
