@@ -7,11 +7,7 @@ TagManager:
   - AmmoReplen
   - LOD
   - PlayerCol
-<<<<<<< HEAD
-  - Enemy
-=======
   - ammoText
->>>>>>> 5f04999bbde7abd15edf8936de853ecfd54c51ab
   layers:
   - Default
   - TransparentFX
