@@ -46,8 +46,6 @@ public class Interactable : MonoBehaviour
     {
         GameManager.instance.hasKeyCard = true;
         GameManager.instance.OpenObjectiveDisplay(keyUIText);
-        StartCoroutine(GameManager.instance.CloseObjectiveDisplay());
-
     }
 
     public void ActivateDoor()
@@ -60,6 +58,7 @@ public class Interactable : MonoBehaviour
     {
         if (GameManager.instance.hasKeyCard)
         {
+            GameManager.instance.fadeOut.SetActive(true);
             doorController.anim.Play("DoorOpen");
             SceneManager.LoadScene("End Scene");
         }

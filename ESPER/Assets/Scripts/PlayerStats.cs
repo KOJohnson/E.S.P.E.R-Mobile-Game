@@ -56,10 +56,10 @@ public class PlayerStats : MonoBehaviour
         currentHealth -= damage;
         healthBar.setHealth(currentHealth);
         
-       // if (currentHealth <= 0)
-       // {
-       //     GameManager.instance.playerDead = true;
-        //}
+        if (currentHealth <= 0)
+        {
+            GameManager.instance.playerDead = true;
+        }
     }
 
     private void Die()

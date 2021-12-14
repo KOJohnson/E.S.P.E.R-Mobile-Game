@@ -149,16 +149,22 @@ public class AiBehaviour : MonoBehaviour
         //if current value is more than 8 we can add damage, if it is less than 8 then damage is 0
         rollNumber = Random.Range(1, 21);
 
-        if (rollNumber < 8)
+        if (rollNumber < 4)
         {
-            damage = 0;
+            damage = 5;
             Debug.Log($"Rolled for {rollNumber}, hit for {damage} damage points");
         }
 
-        if (rollNumber > 8 )
+        if (rollNumber > 4 )
         {
-            damage = Random.Range(4, 11);
+            damage = Random.Range(16, 35);
             Debug.Log($"Rolled for {rollNumber}, hit for {damage} damage points");
+        }
+        
+        if (rollNumber > 16 )
+        {
+            damage = Random.Range(35, 51);
+            Debug.Log($"Critical Hit! Rolled for {rollNumber}, hit for {damage} damage points");
         }
     }
     
