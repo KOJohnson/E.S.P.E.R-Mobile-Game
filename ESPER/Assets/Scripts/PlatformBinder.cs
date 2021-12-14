@@ -16,6 +16,11 @@ public class PlatformBinder : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
-        col.transform.parent = null;
+        if (col.CompareTag("Player"))
+        {
+            print("parent cleared");
+            col.transform.parent = null;
+        }
+        
     }
 }
