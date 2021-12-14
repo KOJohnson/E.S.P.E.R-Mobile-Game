@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Explosives : MonoBehaviour
@@ -27,6 +28,6 @@ public class Explosives : MonoBehaviour
 
     private void PlaceMine()
     {
-        Instantiate(mine, transform.position, transform.rotation);
+        Instantiate(mine, transform.position, quaternion.identity);
     }
 }
