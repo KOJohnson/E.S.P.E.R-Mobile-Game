@@ -7,12 +7,14 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput _playerInput;
 
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask aimAssistMask;
     [SerializeField] private float rayLength;
     [SerializeField] private bool isGrounded;
     
     private Vector3 playerVelocity;
     private float rotationY;
     [SerializeField] private float playerSpeed = 2.0f;
+    public float rotspeed = 1.0f;
     private void Awake()
     {
         _playerInput = new PlayerInput();
@@ -40,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = new Vector3(movementInput.x, 0, movementInput.y);
         
         transform.position += move * playerSpeed * Time.deltaTime;
+        
         if (move != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(move);

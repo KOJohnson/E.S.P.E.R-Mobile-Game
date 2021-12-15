@@ -8,6 +8,8 @@ TagManager:
   - LOD
   - PlayerCol
   - ammoText
+  - Enemy
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -18,13 +20,13 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Lights
   - Ground
   - Player
   - Occlusion
   - Interactable
   - LOD
-  - 
+  - MiniMap
   - 
   - 
   - 
